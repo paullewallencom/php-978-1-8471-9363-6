@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions name ="poService"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             targetNamespace="http://localhost/PHPOracleInAction/ch9/po_sec.wsdl">
+    <message name="getPlaceOrderInput">
+        <part name="po" element="xsd:string"/>        
+        <part name="pswd" element="xsd:string"/>    
+    </message>
+    <message name="getPlaceOrderOutput">
+        <part name="body" element="xsd:string"/>
+    </message>
+    <portType name="poServicePortType">
+        <operation name="placeOrderSecure">
+           <input message="tns:getPlaceOrderInput"/>
+           <output message="tns:getPlaceOrderOutput"/>
+        </operation>
+    </portType>
+    <binding name="poServiceBinding" type="tns:poServicePortType">
+        <soap:binding style="rpc"                                   
+                     transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="placeOrderSecure">
+           <soap:operation soapAction="http://localhost/PHPOracleInAction/ch9/placeOrderSecure"/>
+           <input>
+               <soap:body use="literal"/>
+           </input>
+           <output>
+               <soap:body use="literal"/>
+           </output>
+        </operation>
+    </binding>
+    <service name="poService">
+        <port name="poServicePort" binding="tns:poServiceBinding">
+           <soap:address location="http://localhost/PHPOracleInAction/ch9/SOAPServerSecure.php"/>
+        </port>
+    </service>
+</definitions>
+

@@ -1,0 +1,28 @@
+<purchaseOrder>
+    <shipTo country="US">
+     <name>John Davidson</name>
+     <street>11 Maple Road</street>
+     <city>Fairfax</city>
+     <state>VA</state>
+     <zip>22030</zip>
+   </shipTo>
+   <billTo country="US">
+     <name>John Davidson</name>
+     <street>11 Maple Road</street>
+     <city>Fairfax</city>
+     <state>VA</state>
+     <zip>22030</zip>
+   </billTo>
+   <items>
+      <item>
+       <partId>942</partId>
+       <quantity>2</quantity>
+       <price>75</price>
+      </item>
+      <item>
+       <partId>943</partId>
+       <quantity>3</quantity>
+       <price>34.95</price>
+     </item>
+  </items>
+</purchaseOrder>

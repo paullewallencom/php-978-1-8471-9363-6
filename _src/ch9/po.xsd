@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<xs:schema                
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+         xmlns:xdb="http://xmlns.oracle.com/xdb"
+         xdb:storeVarrayAsTable="true" >    
+   <xs:element name="purchaseOrder" type="purchaseOrder_typ" 
+               xdb:defaultTable="purchaseOrders_tab"/>       
+   <xs:complexType name="purchaseOrder_typ" xdb:SQLType="PURCHASEORDER_T"> 
+    <xsd:sequence>
+     <xsd:element name="orderDate" type="xsd:date" minOccurs="0"/>
+     <xsd:element name="shipDate" type="xsd:date" minOccurs="0"/>
+     <xsd:element name="shipTo" type="Address"/>
+     <xsd:element name="billTo" type="Address"/>
+     <xsd:element name="items" type="Items"/>
+    </xsd:sequence>
+    <xs:attribute name="id" type="xs:positiveInteger"   
+                 xdb:SQLName="PONO" />
+   </xs:complexType>
+   <xs:complexType name="Address" xdb:SQLType="ADDRESS_T">
+    <xsd:sequence>
+     <xsd:element name="name" type="xsd:string" xdb:SQLName="NAME" />
+     <xsd:element name="street" type="xsd:string" xdb:SQLName="STREET" />
+     <xsd:element name="city" type="xsd:string" xdb:SQLName="CITY" />
+     <xsd:element name="state" type="xsd:string" xdb:SQLName="STATE" />
+     <xsd:element name="zip" type="xsd:positiveInteger" xdb:SQLName="ZIP" />
+    </xsd:sequence>
+    <xsd:attribute name="country" type="xsd:NMTOKENS" fixed="US"/>
+   </xsd:complexType>
+   <xsd:complexType name="Items" xdb:SQLType="ITEMS_T" >
+    <xsd:sequence>
+     <xsd:element name="item" minOccurs="0" maxOccurs="unbounded" 
+                  xdb:SQLType="ITEM_T xdb:defaultTable="Items_tab">
+      <xsd:complexType>
+       <xsd:sequence>
+        <xsd:element name="partId" use="required" xdb:SQLType="PARTID">
+        <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:pattern value="d{3}"/>
+         </xsd:restriction>
+        </xsd:simpleType>
+        <xsd:element name="quantity" xdb:SQLType="QUANTITY">
+         <xsd:simpleType>
+          <xsd:restriction base="xsd:positiveInteger">
+           <xsd:maxExclusive value="100"/>
+          </xsd:restriction>
+         </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="Price" type="xsd:decimal" xdb:SQLType="PRICE"/>
+       </xsd:sequence>
+      </xsd:complexType>
+     </xsd:element>
+    </xsd:sequence>
+   </xsd:complexType>
+  </xs:schema>
+
